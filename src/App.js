@@ -36,7 +36,7 @@ const App = () => {
       if (keywords.length > 0) {
         setLoading(true);
         const response = await fetch(
-          `https://stocks23534.herokuapp.com/api/search?keywords=${keywords.join(
+          `https://dry-sierra-74830.herokuapp.com/api/search?keywords=${keywords.join(
             ","
           )}`
         );
