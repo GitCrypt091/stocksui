@@ -5,6 +5,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
 
 const App = () => {
   const [keywords, setKeywords] = useState([]);
@@ -33,7 +34,6 @@ const App = () => {
 
   const queryAPI = async () => {
     try {
-      // test
       if (keywords.length > 0) {
         setLoading(true);
         const response = await fetch(
@@ -88,21 +88,32 @@ const App = () => {
     <div
       style={{
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
       }}
     >
-      <div>
+      <div style={{ marginBottom: "1rem" }}>
+        <Typography variant="h4" component="h2" gutterBottom>
+          Stock Watchlist App
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          Enter keywords to search for related stock symbols.
+        </Typography>
         <KeywordInput
           onKeywordAdd={handleKeywordAdd}
           disabled={addButtonDisabled}
         />
+      </div>
+      <div style={{ marginBottom: "1rem" }}>
         <KeywordChips
           keywords={keywords}
           onKeywordDelete={handleKeywordDelete}
           onKeywordEdit={handleKeywordEdit}
         />
+      </div>
+      <div style={{ marginBottom: "1rem" }}>
         <Button
           variant="contained"
           color="primary"
@@ -111,33 +122,37 @@ const App = () => {
         >
           {loading ? <CircularProgress size={20} /> : "Query"}
         </Button>
-        {watchlistSymbols.length > 0 && (
-          <div style={{ maxWidth: "200px" }}>
-            <h3>Watchlist Symbols:</h3>
-            <p>{watchlistSymbols.join(",")}</p>
-            {watchlistSymbols.length > 10 && (
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={handleCopy}
-                disabled={copied}
-              >
-                {copied ? "Copied!" : "Copy"}
-              </Button>
-            )}
-          </div>
-        )}
-        <Snackbar
-          open={errorMessage !== ""}
-          autoHideDuration={5000}
-          onClose={handleCloseSnackbar}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        >
-          <MuiAlert severity="error" onClose={handleCloseSnackbar}>
-            {errorMessage}
-          </MuiAlert>
-        </Snackbar>
       </div>
+      {watchlistSymbols.length > 0 && (
+        <div style={{ maxWidth: "200px", marginBottom: "1rem" }}>
+          <Typography variant="h6" component="h3" gutterBottom>
+            Watchlist Symbols:
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            {watchlistSymbols.join(",")}
+          </Typography>
+          {watchlistSymbols.length > 10 && (
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleCopy}
+              disabled={copied}
+            >
+              {copied ? "Copied!" : "Copy"}
+            </Button>
+          )}
+        </div>
+      )}
+      <Snackbar
+        open={errorMessage !== ""}
+        autoHideDuration={5000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <MuiAlert severity="error" onClose={handleCloseSnackbar}>
+          {errorMessage}
+        </MuiAlert>
+      </Snackbar>
     </div>
   );
 };
