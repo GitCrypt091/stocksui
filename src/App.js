@@ -36,7 +36,9 @@ const App = () => {
       if (keywords.length > 0) {
         setLoading(true);
         const response = await fetch(
-          `http://localhost:3001/api/search?keywords=${keywords.join(",")}`
+          `https://stocks23534.herokuapp.com/api/search?keywords=${keywords.join(
+            ","
+          )}`
         );
         if (response.ok) {
           const data = await response.json();
