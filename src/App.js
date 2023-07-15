@@ -33,6 +33,7 @@ const App = () => {
 
   const queryAPI = async () => {
     try {
+      // test
       if (keywords.length > 0) {
         setLoading(true);
         const response = await fetch(
