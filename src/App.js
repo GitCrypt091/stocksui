@@ -84,6 +84,15 @@ const App = () => {
     setErrorMessage("");
   };
 
+  const displayWatchlistSymbols = () => {
+    if (watchlistSymbols.length <= 5) {
+      return watchlistSymbols.join(",");
+    } else {
+      const displayedSymbols = watchlistSymbols.slice(0, 5).join(",");
+      return `${displayedSymbols}...`;
+    }
+  };
+
   return (
     <div
       style={{
@@ -129,7 +138,7 @@ const App = () => {
             Watchlist Symbols:
           </Typography>
           <Typography variant="body2" gutterBottom>
-            {watchlistSymbols.join(",")}
+            {displayWatchlistSymbols()}
           </Typography>
           {watchlistSymbols.length > 10 && (
             <Button
